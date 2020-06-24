@@ -40,7 +40,7 @@ property_details = [
     100, 200, 600, 1400, 1700, 2000, 200, 0]
 
 # 1. property 2. price 3. color 4. rent 5. rent with color set. 6. 1 house rent 7. 2 house rent 8. 3 house rent
-# 9. 4 house rent 10. hotel rent 11. house cost
+# 9. 4 house rent 10. hotel rent 11. house cost 12. Who owns it
 print(len(property_details))
 current_player = 1
 player_data = []
@@ -64,8 +64,10 @@ for i in range(player_amount):
     # 1. Amount of money 2. Space landed on 3. In jail
     player_data.append([1500, 0, False])
 while play:
+    property_monopoly = False
+    property_monopoly_details = []
     print("It is now player " + str(current_player) + "'s turn.")
-    sleep(1)
+    sleep(2)
     die1 = randint(1, 6)
     die2 = randint(1, 6)
     roll = player_data[current_player - 1][1] + die1 + die2
@@ -74,21 +76,40 @@ while play:
         roll = roll - 40
     sleep(1)
     print("Congratulations! You have landed on " + property_details[roll * 12])
+    sleep(2)
     player_data[current_player - 1][1] = roll
     # If it is a buyable property.
-    print("The price of " + property_details[(player_data[current_player - 1][1] * 12)] + " will be " + str(property_details[(player_data[current_player - 1][1] * 12) + 1]))
-    purchase = str(input("Would you like to buy it: "))
-    if purchase.upper() == "YES":
+    if roll == 0 or roll == 2 or roll == 4 or roll == 5 or roll == 7 or roll == 10 or roll == 12 or roll == 15 or roll == 17 or roll == 20 or roll == 22 or roll == 25 or roll == 28 or roll == 30 or roll == 33 or roll == 35 or roll == 36 or roll == 38:
+        print("hello")
+    else:
         balance = player_data[current_player - 1][0]
-        balance = balance - property_details[(player_data[current_player - 1][1] * 12) + 1]
-        player_data[current_player - 1].append(property_details[player_data[current_player - 1][1] * 12])
-        player_data[current_player - 1].append(property_details[(player_data[current_player - 1][1] * 12) + 2])
+        print("The price of " + property_details[roll * 12] + " will be $" + str(property_details[roll * 12 + 1]))
+        sleep(2)
+        print("You have $" + str(player_data[current_player - 1][0]))
+        sleep(2)
+        purchase = str(input("Would you like to buy it: "))
         sleep(1)
-        print("You have just bought " + (property_details[(player_data[current_player - 1][1]) * 12]))
-        sleep(1)
-        print("Your balance is now " + str(balance))
-        player_data[current_player - 1][0] = balance
-    
+        if purchase.upper() == "YES":
+            balance = balance - property_details[(roll * 12) + 1]
+            player_data[current_player - 1].append(property_details[roll * 12])
+            player_data[current_player - 1].append(property_details[(roll * 12) + 2])
+            sleep(1)
+            print("You have just bought " + (property_details[roll * 12]))
+            sleep(1)
+            print("Your balance is now " + str(balance))
+            player_data[current_player - 1][0] = balance
+    for i in range(40):
+        color_occurences = player_data[current_player].count(property_details[(i * 12) + 2])
+        if color_occurences == 3 or (color_occurences == 2 and (property_details[(i * 12) + 2] == "brown" or property_details[(i * 12) + 2] == "darkblue")):
+            property_monopoly = True
+            property_monopoly_details.append(property_details[i * 12])
+            property_monopoly_details.append(property_details[(i * 12) + 2])
+    if property_monopoly:
+        houses = input("Would you like to buy some houses")
+        if houses.upper() == "YES":
+            print("Would you like to buy houses on...")
+            for i in range(len(property_monopoly_details) / 2):
+                print(str(i + 1) + ". " + property_monopoly_details[i + 1])
 
 print("You have landed on " + property_details[player_data[current_player - 1][1] * 11])
 print(player_data)
