@@ -53,15 +53,15 @@ print("For questions that require a numeric value, you must type only a numeric 
 sleep(2)
 # testing player to see if they understand
 while begin:
-    start = str(input("Are you ready to continue: "))
+    start = str(input("Are you ready to continue? "))
     if start.upper() != "YES":
         print("Oooops! Try again.")
         sleep(2)
     else:
         begin = False
-player_amount = int(input("How many players do you have: "))
+player_amount = int(input("How many players do you have? "))
 for i in range(player_amount):
-    # 1. Amount of money 2. Space landed on 3. In jail
+    # List contents: 0. Amount of money 1. Space landed on 2. In jail
     player_data.append([1500, 0, False])
 while play:
     property_monopoly = False
