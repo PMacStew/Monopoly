@@ -75,13 +75,14 @@ while play:
     if roll >= 40:
         roll = roll - 40
     sleep(1)
-    print("Congratulations! You have landed on " + property_details[roll * 13] + ". Its color is " + property_details[(roll * 13) + 2])
+    print("Congratulations! You have landed on " + str(property_details[roll * 13]) + ". Its color is " + str(
+        property_details[(roll * 13) + 2]))
     sleep(2)
     player_data[current_player - 1][1] = roll
     # Other random properties
     if roll == 0 or roll == 2 or roll == 4 or roll == 5 or roll == 7 or roll == 10 or roll == 12 or roll == 15 or roll == 17 or roll == 20 or roll == 22 or roll == 25 or roll == 28 or roll == 30 or roll == 33 or roll == 35 or roll == 36 or roll == 38:
         print("hello")
-    # regular buyable properties
+    # regular purchasable properties
     else:
         balance = player_data[current_player - 1][0]
         print("The price of " + property_details[roll * 13] + " will be $" + str(property_details[roll * 13 + 1]))
@@ -90,7 +91,7 @@ while play:
         sleep(2)
         purchase = str(input("Would you like to buy it: "))
         sleep(1)
-        #If they want to buy it
+        # If they want to buy it
         if purchase.upper() == "YES":
             balance = balance - property_details[(roll * 13) + 1]
             player_data[current_player - 1].append(property_details[roll * 13])
@@ -99,37 +100,40 @@ while play:
             print("You have just bought " + (property_details[roll * 13]))
             sleep(1)
             print("Your balance is now " + str(balance))
-    #checking if you can buy houses
+    # checking if you can buy houses
     for i in range(40):
         color_occurences = player_data[current_player - 1].count(property_details[(i * 13) + 2])
-        if color_occurences == 3 or (color_occurences == 2 and (property_details[(i * 13) + 2] == "brown" or property_details[(i * 13) + 2] == "darkblue")):
+        if color_occurences == 3 or (color_occurences == 2 and (
+                property_details[(i * 13) + 2] == "brown" or property_details[(i * 13) + 2] == "darkblue")):
             property_monopoly = True
             property_monopoly_details.append(property_details[(i * 13) + 2])
             property_monopoly_details.append(property_details[i * 13])
-    #Asking if you would like to by houses.
+    # Asking if you would like to by houses.
     if property_monopoly:
         houses = input("Would you like to buy some houses")
         if houses.upper() == "YES":
             print("Would you like to buy houses on...")
-            #asking which property
-            for i in range(len(property_monopoly_details) / 2):
-                print(str(i + 1) + ". " + property_monopoly_details[i * 2] + ". House number: " + str(property_details[property_details.index(property_monopoly_details[i * 2]) + 12]))
+            # asking which property
+            for i in range(len(property_monopoly_details) // 2):
+                print(str(i + 1) + ". " + property_monopoly_details[i * 2] + ". House number: " + str(
+                    property_details[property_details.index(property_monopoly_details[i * 2]) + 12]))
             print("Make sure to enter a numerical value")
             house_property = input("Which house would you like to buy houses on: ")
-            house_number = property_details[property_details.index(property_monopoly_details[((house_property - 1) * 2) + 1]) + 12]
+            house_number = property_details[
+                property_details.index(property_monopoly_details[((int(house_property) - 1) * 2) + 1]) + 12]
             select_property = property_details.index(house_number) - 12
-            #informing how many houses you can buy.
-            buyable_houses = 4 - house_number
-            if buyable_houses >= 1:
-                if buyable_houses == 1:
-                    print("You can buy " + str(buyable_houses) + " house")
+            # informing how many houses you can buy.
+            purchasable_houses = 4 - house_number
+            if purchasable_houses >= 1:
+                if purchasable_houses == 1:
+                    print("You can buy " + str(purchasable_houses) + " house")
                 else:
-                    print("You can buy " + str(buyable_houses) + " houses")
+                    print("You can buy " + str(purchasable_houses) + " houses")
                 print("Your balance is $" + str(balance))
                 move = True
                 while move:
                     house_purchase = int(input("How many houses would you like to purchase"))
-                    if house_purchase > buyable_houses or house_purchase <= 0:
+                    if house_purchase > purchasable_houses or house_purchase <= 0:
                         print("Ooops! Invalid house number. Try again")
                     else:
                         move = False
