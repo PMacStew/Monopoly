@@ -144,7 +144,7 @@ while play:
                 print("You can buy a hotel")
             elif house_number < 4:
                 print("If you buy all the houses you can also buy a hotel. ")
-    player_data[current_player - 1][0] = balance
+    balance = player_data[current_player - 1][0]
 
 print("You have landed on " + property_details[player_data[current_player - 1][1] * 11])
 print(player_data)
