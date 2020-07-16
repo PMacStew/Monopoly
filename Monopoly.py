@@ -41,7 +41,7 @@ property_details = [
 
 # 1. property 2. price 3. color 4. rent 5. rent with color set. 6. 1 house rent 7. 2 house rent 8. 3 house rent
 # 9. 4 house rent 10. hotel rent 11. house cost 12. Who owns it 13. how many houses it has
-print(len(property_details))
+# print(len(property_details)) commented because it seems unnecessary
 current_player = 1
 player_data = []
 play = True
@@ -99,7 +99,7 @@ while play:
             sleep(1)
             print("You have just bought " + (property_details[roll * 13]))
             sleep(1)
-            print("Your balance is now " + str(balance))
+            print("Your balance is now $" + str(balance))
     # checking if you can buy houses
     for i in range(40):
         color_occurences = player_data[current_player - 1].count(property_details[(i * 13) + 2])
